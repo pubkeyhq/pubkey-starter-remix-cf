@@ -1,13 +1,15 @@
 import type { MetaFunction } from "@remix-run/cloudflare";
+import { useAppConfig } from "~/app-config";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    {title: "New Remix App"},
+    {name: "description", content: "Welcome to Remix!"},
   ];
 };
 
 export default function Index() {
+  const {config} = useAppConfig()
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="flex flex-col items-center gap-16">
@@ -28,12 +30,13 @@ export default function Index() {
             />
           </div>
         </header>
-        <nav className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
+        <nav
+          className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
           <p className="leading-6 text-gray-700 dark:text-gray-200">
             What&apos;s next?
           </p>
           <ul>
-            {resources.map(({ href, text, icon }) => (
+            {resources.map(({href, text, icon}) => (
               <li key={href}>
                 <a
                   className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
@@ -49,6 +52,7 @@ export default function Index() {
           </ul>
         </nav>
       </div>
+      <pre>{JSON.stringify(config, null, 2)}</pre>
     </div>
   );
 }
